@@ -1,0 +1,6 @@
+package com.example.DiantarAje
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
