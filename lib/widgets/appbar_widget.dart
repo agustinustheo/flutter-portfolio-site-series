@@ -1,4 +1,5 @@
 import 'package:DiantarAje/common/colors.dart';
+import 'package:DiantarAje/common/sizes.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar {
@@ -12,21 +13,29 @@ class MyAppBar {
       iconTheme: IconThemeData(
         color: ColorPalette.buttonTextColor
       ),
-      title: Text(this.title, style: TextStyle(color: ColorPalette.buttonTextColor)),
+      title: NavBarText(
+        this.title, 
+        fontSize: Sizes.dp14(context),
+      ),
       backgroundColor: ColorPalette.primaryColor,
       actions: [
         context != null ? Container(
-          width: 300.0,
-          padding: EdgeInsets.only(right: 10.0),
+          width: Sizes.dp72(context),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                child: NavBarText('About'),
+                child: NavBarText(
+                  'About', 
+                  fontSize: Sizes.dp14(context)
+                ),
                 onTap: () {}
               ),
               InkWell(
-                child: NavBarText('Experience'),
+                child: NavBarText(
+                  'Experience', 
+                  fontSize: Sizes.dp14(context)
+                ),
                 onTap: () {}
               )
             ],
@@ -39,22 +48,23 @@ class MyAppBar {
 
 class NavBarText extends StatelessWidget {
   final String text;
+  final double fontSize;
 
   const NavBarText(
     this.text,
     {
+      this.fontSize = 18.0,
       Key key,
     }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 10.0),
       child: Text(
         text,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 18.0,
+          fontSize: this.fontSize,
           fontWeight: FontWeight.w500,
           letterSpacing: 1
         ),

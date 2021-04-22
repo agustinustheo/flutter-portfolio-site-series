@@ -1,3 +1,4 @@
+import 'package:DiantarAje/common/sizes.dart';
 import 'package:DiantarAje/widgets/appbar_widget.dart';
 import 'package:DiantarAje/widgets/background_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,25 +32,59 @@ class HomePage extends StatelessWidget {
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * 0.8
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
+            child: LayoutBuilder(
+              builder: (context, constraint){
+                if(constraint.maxWidth > 600){
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          ConstrainedText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
+                            maxWidth: 400.0,
+                          ),
+                          ConstrainedText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
+                            maxWidth: 400.0,
+                          ),
+                        ],
+                      ),
+                      LimasFace()
+                    ],
+                  );
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ConstrainedText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
-                      maxWidth: 400.0,
+                    Column(
+                      children: [
+                        NormalText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.'),
+                        NormalText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.'),
+                      ],
                     ),
-                    ConstrainedText('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
-                      maxWidth: 400.0,
-                    ),
+                    LimasFace()
                   ],
-                ),
-                Image.network('https://media-exp1.licdn.com/dms/image/C5103AQEn4jvEUSXO1w/profile-displayphoto-shrink_200_200/0/1575567054873?e=1622678400&v=beta&t=e5B7yOR7XyT64YXxobwqBpuwEvAmYTanvvREJN1hWbE')
-              ],
+                );
+              }
             )
           ),
         ],
       ),
+    );
+  }
+}
+
+class LimasFace extends StatelessWidget {
+  const LimasFace({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 200,
+      child: Image.network('https://assets.pikiran-rakyat.com/crop/0x34:1200x874/x/photo/2020/11/22/1216490708.jpg')
     );
   }
 }
@@ -59,7 +94,7 @@ class ConstrainedText extends StatelessWidget {
   final double maxWidth;
 
   const ConstrainedText(this.text, {
-    this.maxWidth = 0,
+    this.maxWidth = double.infinity,
     Key key,
   }) : super(key: key);
 
@@ -67,7 +102,7 @@ class ConstrainedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxWidth: maxWidth != 0 ? maxWidth : double.infinity
+        maxWidth: this.maxWidth
       ),
       child: NormalText(text),
     );
@@ -88,7 +123,7 @@ class NormalText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 18,
+        fontSize: Sizes.dp12(context),
         color: color,
         letterSpacing: 1
       ),
@@ -110,7 +145,7 @@ class TitleText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 32,
+        fontSize: Sizes.dp22(context),
         fontWeight: FontWeight.bold,
         color: color,
         letterSpacing: 1
@@ -133,7 +168,7 @@ class SubtitleText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 28,
+        fontSize: Sizes.dp16(context),
         fontWeight: FontWeight.bold,
         color: color,
         letterSpacing: 1
@@ -156,7 +191,7 @@ class SectionTitleText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 22,
+        fontSize: Sizes.dp14(context),
         fontWeight: FontWeight.bold,
         color: color,
         letterSpacing: 1
